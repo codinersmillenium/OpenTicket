@@ -30,9 +30,16 @@ persistent actor {
     public query func getEvents(id: Nat) 
     : async Result.Result<[TypEvent.EventResponse], ()> {
         var result : [TypEvent.EventResponse] = event.getEvents();
-        if (id < 1) {
+        if (id > 0) {
             result := event.getEventByIds([id]);
         };
+        return #ok(result);
+    };
+
+    // MARK: Get all events
+    public query func getEventsByOwned(userId: TypCommon.UserId) 
+    : async Result.Result<[TypEvent.EventResponse], ()> {
+        var result : [TypEvent.EventResponse] = event.getEventByOwned(userId);
         return #ok(result);
     };
 

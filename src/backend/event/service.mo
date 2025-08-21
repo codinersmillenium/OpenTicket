@@ -62,6 +62,16 @@ module {
             return Buffer.toArray(data);
         };
 
+        // MARK: Get event by id
+        public func getEventByOwned(ids: TypCommon.UserId) : [TypEvent.EventResponse] {
+            let data = Buffer.Buffer<TypEvent.EventResponse>(0);
+            switch (eventsResp.get(Principal.toBlob(ids))) {
+                case (null) {};
+                case (?e) { data.add(e)};
+            };
+            return Buffer.toArray(data);
+        };
+
         // MARK: Find event by id {private func}
         private func findEventById(eventId : TypCommon.EventId) : ?TypEvent.EventResponse {
             return switch (eventsResp.get(Utl.natToBlob(eventId))) {
