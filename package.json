@@ -21,7 +21,8 @@
     "@dfinity/agent": "^3.2.1",
     "@dfinity/auth-client": "^3.2.1",
     "@dfinity/principal": "^3.2.1",
-    "react-loading-indicators": "^1.0.1"
+    "react-loading-indicators": "^1.0.1",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

@@ -2,13 +2,12 @@ import Principal "mo:base/Principal";
 import Nat "mo:base/Nat";
 import Debug "mo:base/Debug";
 
-import TypToken "type";
-
 import SvcToken "token";
 
 persistent actor {
-    private let tokenName   : Text = "Tomato";
-    private let tokenSymbol : Text = "TOMA";
+    private let tokenName    : Text = "Ticketo";
+    private let tokenSymbol  : Text = "TCT";
+    private let tokenConvert : Nat = 1000;
     
 	private var stableToken : [SvcToken.StableToken] = [];
 
@@ -39,21 +38,9 @@ persistent actor {
         Debug.print("updated token [ " # Principal.toText owner # " ] f: " # Nat.toText balance # " => t: " # Nat.toText currBalance);
     };
 
-    // MARK: Payout
-    public shared func teamPayout(payouts : [TypToken.PayoutTeam]) : async Bool {
-        for(payout in payouts.vals()) {
-            let owner = payout.userId;
-            let balance = token.balanceOf(owner);
-            let afterToken = balance + payout.token;
-            token.balances.put(owner, afterToken);
-
-            Debug.print("updated token [ " # Principal.toText owner # " ] f: " # Nat.toText balance # " => t: " # Nat.toText afterToken);
-        };
-
-        return true;
+    public query func convertToken(amount : Nat) : async Nat {
+        return amount/tokenConvert;
     };
-
-
 
     system func preupgrade() {
         stableToken := SvcToken.toStable(token);

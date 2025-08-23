@@ -15,8 +15,8 @@ export default function LoadingOverlay({
   message = "Loading",
   variant = "mosaic",
   color = "#3145cc",
-  backdrop = "transparent",
-  size = "md",
+  backdrop = "dim",
+  size = "lg",
 }: {
   open?: boolean;
   message?: string;
@@ -32,7 +32,7 @@ export default function LoadingOverlay({
   return (
     <div
       className={[
-        "fixed inset-0 z-[9999] flex items-center justify-center",
+        "fixed inset-0 z-[999990] flex items-center justify-center",
         backdrop === "transparent" && "bg-transparent",
         backdrop === "dim" && "bg-black/40",
         backdrop === "glass" && "backdrop-blur-sm bg-black/10",

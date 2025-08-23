@@ -22,11 +22,10 @@ module {
 		id                     : TypCommon.SeatId;
         eventId                : TypCommon.EventId;
         name                   : Text;
-        desc                   : Text;
-        participantTotal       : Int;
-        priceTicketToken       : Nat;
-        priceTicketMax         : Int; // percentage max from ticket price (exp. 20% from normal price)
-        royaltiTicketResale    : Int; // percentage
+        participantTotal       : Nat;
+        priceTicket            : Nat;
+        priceTicketMax         : Nat; // percentage max from ticket price (exp. 20% from normal price)
+        royaltiTicketResale    : Nat; // percentage
         // Todo Image
     };
 
@@ -44,6 +43,15 @@ module {
         seat             : [Seat];
     };
 
-    public type EventRequest = EventResponse;
+    public type EventRequest = {
+        id               : TypCommon.EventId;
+        name             : Text;
+        desc             : Text;
+        dateStart        : Int;
+		dateEnd          : Int;
+        latitude         : ?Text;
+        longitude        : ?Text;
+        seat             : [Seat];
+    };
 
 };

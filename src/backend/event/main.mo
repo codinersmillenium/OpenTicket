@@ -2,11 +2,13 @@ import Result "mo:base/Result";
 import Iter "mo:base/Iter";
 import Debug "mo:base/Debug";
 import Error "mo:base/Error";
+import Nat "mo:base/Nat";
 
 import TypCommon "../common/type";
 import TypEvent "type";
 
 import SvcEvent "service";
+import SvcToken "canister:token";
 
 persistent actor {
     private var nextEventId   : TypCommon.EventId = 1;
@@ -14,16 +16,12 @@ persistent actor {
 
     private var stableEvents         : [SvcEvent.StableEvents]         = [];
     private var stableSeats          : [SvcEvent.StableSeats]         = [];
-    private var stableSeatEvents     : [SvcEvent.StableSeatEvents]         = [];
-    private var stableOwnerEvents    : [SvcEvent.StableOwnerEvents]    = [];
 
     transient let event = SvcEvent.Event(
         nextEventId,
         nextSeatId,
         stableEvents,
-        stableSeats,
-        stableSeatEvents,
-        stableOwnerEvents
+        stableSeats
     );
 
     // MARK: Get all events
@@ -46,10 +44,27 @@ persistent actor {
     // MARK: Create or Update event
     public shared ({caller}) func updateorCreateEvent(
         req : TypEvent.EventRequest
-    ) : async Result.Result<Text, Text> {
+    ) : async Result.Result<{status: Text; message: Text}, Text> {
         try {
-            let _ = event.updateorCreateEvent(caller, req);
-            return #ok("#update event successfull...");
+            let balance: Nat = await SvcToken.balanceOf(caller);
+            var total: Nat = 0;
+            for(i in req.seat.vals()) {
+                total += (i.priceTicket * i.participantTotal)
+            };
+            let fee: Nat = total * 6 / 100;
+            let convertBalance = await SvcToken.convertToken(fee);
+            if (balance < convertBalance) {
+                return #ok({
+                    status = "insufficient";
+                    message = Nat.toText(convertBalance);
+                });
+            } else {
+                let _ = event.updateorCreateEvent(caller, req);
+                return #ok({
+                    status = "success";
+                    message = "#update event successfull...";
+                })
+            }
         } catch (err) {
             Debug.print("Caught error: " # Error.message(err));
             return #err("#update event failed...");
@@ -75,12 +90,10 @@ persistent actor {
 
     system func preupgrade() {
         stableEvents         := Iter.toArray(event.events.entries());
-        stableOwnerEvents    := Iter.toArray(event.ownerEvents.entries());
     };
 
     system func postupgrade() {
         stableEvents         := [];
-        stableOwnerEvents    := [];
     };
 
 }
