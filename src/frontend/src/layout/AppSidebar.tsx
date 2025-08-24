@@ -8,8 +8,7 @@ import {
   GridIcon,
   HorizontaLDots,
   PieChartIcon,
-  TableIcon,
-  UserCircleIcon
+  TableIcon
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
@@ -31,15 +30,10 @@ const navItems: NavItem[] = [
     path: '/'
   },
   {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-  {
     name: "Settings",
     icon: <CalenderIcon />,
     subItems: [
-      { name: "Events", path: "/calendar", pro: false },
+      { name: "Events", path: "/setting-events", pro: false },
       { name: "Transportations", path: "/form-elements", soon: true }
     ]
   },
@@ -47,9 +41,8 @@ const navItems: NavItem[] = [
     name: "Transactions",
     icon: <TableIcon />,
     subItems: [
-      { name: "Ticket", path: "/basic-tables", pro: false },
-      { name: "TopUp Wallet", path: "/basic-tables", pro: false },
-      { name: "Premium Account", path: "/basic-tables", pro: false }
+      { name: "Ticket", path: "/trx-events", pro: false },
+      { name: "TopUp Wallet", path: "/basic-tables", pro: false }
     ],
   }
 ];
@@ -59,8 +52,7 @@ const othersItems: NavItem[] = [
     icon: <PieChartIcon />,
     name: "Reports",
     subItems: [
-      { name: "Transactions", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false },
+      { name: "History", path: "/line-chart", pro: false }
     ],
   }
 ];

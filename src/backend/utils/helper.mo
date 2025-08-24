@@ -31,19 +31,20 @@ module {
         return Blob.fromArray(arr)
     };
 
-    public func generateTicketCode() : async Text {
+    public func generateCode(prefix: Text, length: Nat) : async Text {
         let charsetText  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let charset      = Iter.toArray(Text.toIter(charsetText));
         let charsetSize  = charset.size();
-        let randomBlob   = await Random.blob();
+        let randomBlob   = Blob.toArray(await Random.blob());
         var code         = "";
-
-        for (byte in randomBlob.vals()) {
-            let idx = Nat8.toNat(byte) % charsetSize;
-            code   #= Text.fromChar(charset[idx]);
+        
+        label l for (i in Iter.range(0, length - 1)) {
+            let byte = randomBlob[i % randomBlob.size()];
+            let idx  = Nat8.toNat(byte) % charsetSize;
+            code    #= Text.fromChar(charset[idx]);
         };
 
-        return "REF-#" # code;
+        return prefix # code;
     };
 
     public func textToNat(t : Text) : Int {

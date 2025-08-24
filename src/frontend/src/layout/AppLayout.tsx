@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import AppHeader from "./AppHeader";
 import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
+import { ToastContainer } from "react-toastify";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -12,6 +13,7 @@ const LayoutContent: React.FC = () => {
       <div>
         <AppSidebar />
         <Backdrop />
+        <ToastContainer/>
       </div>
       <div
         className={`flex-1 transition-all duration-300 ease-in-out ${

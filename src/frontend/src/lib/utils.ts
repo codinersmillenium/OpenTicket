@@ -13,6 +13,12 @@ export function formatDate(date: any): string {
   })
 }
 
+export function formatDay(date: any): string {
+  return new Date(Number(date)).toLocaleDateString('id-ID', {
+    weekday: 'long'
+  })
+}
+
 export function dateStringToUnix(dateStr: string, inMilliseconds: boolean = false): number {
   const date = new Date(dateStr);
 
@@ -21,4 +27,23 @@ export function dateStringToUnix(dateStr: string, inMilliseconds: boolean = fals
   }
 
   return inMilliseconds ? date.getTime() : Math.floor(date.getTime() / 1000);
+}
+
+export function formatCurrency(amount: number, currency: string = 'IDR'): string {
+  var opt: any = {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }
+  return new Intl.NumberFormat('id-ID', opt).format(amount)
+}
+
+export const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = (error) => reject(error)
+  })
 }

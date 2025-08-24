@@ -9,7 +9,6 @@ import TypCommon "../common/type";
 import TypEvent "type";
 
 import Utl "../utils/helper";
-// import CanUser "canister:user";
 
 
 module {
@@ -90,9 +89,9 @@ module {
                 desc       = event.desc;
                 dateStart  = event.dateStart;
                 dateEnd    = event.dateEnd;
-                latitude   = event.latitude;
-                longitude  = event.longitude;
-                publish    = event.publish;
+                tags       = event.tags;
+                location   = event.location;
+                image      = event.image;
                 isOver     = event.isOver;
                 seat       = filteredSeats;
             }
@@ -111,9 +110,9 @@ module {
                 desc             = req.desc;
                 dateStart        = req.dateStart;
                 dateEnd          = req.dateEnd;
-                latitude         = req.latitude;
-                longitude        = req.longitude;
-                publish          = true;
+                tags             = req.tags;
+                location         = req.location;
+                image            = req.image;
                 isOver           = false;
             };
 

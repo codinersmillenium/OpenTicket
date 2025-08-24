@@ -53,7 +53,7 @@ persistent actor {
         req : TypTicket.Ticket
     ) : async Result.Result<TypTicket.Ticket, Text> {
         try {
-            let code: Text = await Utl.generateTicketCode();
+            let code: Text = await Utl.generateCode("#TCT-", 8);
             let result = ticket.createTicket(code, caller, req);
             return #ok(result);
         } catch (err) {
@@ -80,7 +80,7 @@ persistent actor {
         req : TypTicket.ResaleTicket
     ) : async Result.Result<TypTicket.ResaleTicket, Text> {
         try {
-            let code: Text = await Utl.generateTicketCode();
+            let code: Text = await Utl.generateCode("#TCT-", 8);
             let result = ticket.resaleTicket(code, caller, req);
             return #ok(result);
         } catch (err) {

@@ -2,8 +2,10 @@ import * as decUser from 'declarations/user'
 import * as decEvent from 'declarations/event'
 import * as decTicket from 'declarations/ticket'
 import * as decToken from 'declarations/token'
+import * as decTrx from 'declarations/transaction'
 import { AuthClient } from '@dfinity/auth-client'
 import { Principal } from '@dfinity/principal'
+import { HttpAgent } from '@dfinity/agent'
 
 /**
  * Singleton AuthClient instance
@@ -32,20 +34,23 @@ const identityProvider =
  * Initialize an actor for a given canister
  * - Uses caching to avoid unnecessary re-creation
  */
-export const initActor = async (canister: 'user' | 'event' | 'ticket' | 'token' = 'user') => {
+export const initActor = async (canister: 'user' | 'event' | 'ticket' | 'token' | 'trx' = 'user') => {
   try {
     // Return cached actor if already created
     if (actorCache[canister]) return actorCache[canister]
 
     const authClient = await getAuthClient()
     const identity = authClient.getIdentity()
-
-    const options = {
-      agentOptions: {
-        host: process.env.API_HOST,
-        identity
-      }
+    const agent = new HttpAgent({ host: process.env.API_HOST, identity });
+    if (process.env.DFX_NETWORK !== "ic") {
+       await agent.fetchRootKey().catch((err) => {
+            console.warn(
+                "Unable to fetch root key. Check to ensure that your local replica is running"
+            );
+            console.error(err);
+        });
     }
+    const options = { agent: agent }
 
     let actor: any
     switch (canister) {
@@ -60,6 +65,9 @@ export const initActor = async (canister: 'user' | 'event' | 'ticket' | 'token' 
         break
       case 'token':
         actor = decToken.createActor(decToken.canisterId, options)
+        break
+      case 'trx':
+        actor = decTrx.createActor(decTrx.canisterId, options)
         break
       default:
         throw new Error(`Unknown canister: ${canister}`)
@@ -85,6 +93,11 @@ export const getPrincipal = async () => {
 export const checkPrincipal = async () => {
     const actor = await initActor()
     return actor.checkPrincipal()
+}
+
+export const convertToToken = async (amount: Number) => {
+    const actor = await initActor('token')
+    return actor.convertToken(amount)
 }
 
 /**

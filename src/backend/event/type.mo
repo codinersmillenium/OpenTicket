@@ -10,9 +10,9 @@ module {
         desc             : Text;
         dateStart        : Int;
 		dateEnd          : Int;
-        latitude         : ?Text;
-        longitude        : ?Text;
-        publish          : Bool;
+        location         : Text;
+        image            : ?Text;
+        tags             : Text;
         isOver           : Bool;
         // Todo Image
     };
@@ -36,9 +36,9 @@ module {
         desc             : Text;
         dateStart        : Int;
 		dateEnd          : Int;
-        latitude         : ?Text;
-        longitude        : ?Text;
-        publish          : Bool;
+        location         : Text;
+        image            : ?Text;
+        tags             : Text;
         isOver           : Bool;
         seat             : [Seat];
     };
@@ -49,8 +49,9 @@ module {
         desc             : Text;
         dateStart        : Int;
 		dateEnd          : Int;
-        latitude         : ?Text;
-        longitude        : ?Text;
+        tags             : Text;
+        location         : Text;
+        image            : ?Text;
         seat             : [Seat];
     };
 

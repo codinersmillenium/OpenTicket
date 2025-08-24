@@ -25,4 +25,11 @@ module {
         resale : [?ResaleTicket];
     };
 
+    public type Invoice = {
+        id         : TypCommon.InvoiceId;
+        userId     : TypCommon.UserId;
+        seatId     : TypCommon.SeatId;
+        createdAt  : Int;
+    };
+
 };

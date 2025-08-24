@@ -37,11 +37,11 @@ module {
                     case (?e)   {
                         if (seatId == e.seatId) {
                             switch (findTicketBySeat(e.seatId)) {
-                            case (null) {};
-                            case (_) {
-                                data.add(e);
+                                case (null) {};
+                                case (_) {
+                                    data.add(e);
+                                };
                             };
-                        };
                         } else {
                             data.add(e);
                         }

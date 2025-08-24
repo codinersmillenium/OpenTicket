@@ -21,7 +21,7 @@ persistent actor {
         nextEventId,
         nextSeatId,
         stableEvents,
-        stableSeats
+        stableSeats,
     );
 
     // MARK: Get all events

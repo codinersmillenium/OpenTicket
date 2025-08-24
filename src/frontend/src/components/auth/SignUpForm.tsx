@@ -5,6 +5,7 @@ import Select from "../form/Select";
 import { useState } from "react";
 import { initActor } from "../../lib/canisters";
 import LoadingOverlay from "../ui/LoadingOverlay";
+import { toast } from "react-toastify";
 
 export default function SignUpForm() {
   const [open, setOpen] = useState(false)
@@ -36,12 +37,12 @@ export default function SignUpForm() {
         console.log(formData)
         await actor.registerUser(formData)
         setOpen(false)
-        alert('Success Register User...')
+        toast.success('Success register user...')
         setTimeout(() => {
             window.location.href = '/'
         }, 300);
     } catch (error) {
-        alert('Failed Register User...');
+      toast.error('Failed register user...')
     }
   }
   return (

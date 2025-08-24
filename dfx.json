@@ -1,19 +1,5 @@
 {
   "canisters": {
-    "frontend": {
-      "dependencies": [
-        "internet_identity",
-        "token",
-        "user",
-        "event",
-        "ticket"   
-      ],
-      "source": [
-        "src/frontend/dist"
-      ],
-      "type": "assets",
-      "workspace": "frontend"
-    },
     "internet_identity": {
       "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
       "frontend": {},
@@ -40,6 +26,10 @@
 		"user": {
 			"type": "motoko",
 			"main": "src/backend/user/main.mo"
+		},
+    "transaction": {
+			"type": "motoko",
+			"main": "src/backend/transaction/main.mo"
 		}
   },
   "defaults": {
