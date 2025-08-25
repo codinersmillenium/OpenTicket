@@ -34,11 +34,20 @@ persistent actor {
         return #ok(result);
     };
 
-    // MARK: Get all events
+    // MARK: Get all events by owned
     public query func getEventsByOwned(userId: TypCommon.UserId) 
     : async Result.Result<[TypEvent.EventResponse], ()> {
         var result : [TypEvent.EventResponse] = event.getEventByOwned(userId);
         return #ok(result);
+    };
+
+    // MARK: Get seat by id
+    public query func getSeatById(id: Nat) 
+    : async Result.Result<TypEvent.Seat, ()> {
+        switch (event.getSeatById(id)) {
+            case null { return #err(); };
+            case (?seat) { return #ok(seat); };
+        };
     };
 
     // MARK: Create or Update event

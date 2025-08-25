@@ -2,6 +2,7 @@ import Result "mo:base/Result";
 import Iter "mo:base/Iter";
 import Array "mo:base/Array";
 import Buffer "mo:base/Buffer";
+import Principal "mo:base/Principal";
 
 import TypCommon "../common/type";
 import TypUser "type";
@@ -64,10 +65,11 @@ persistent actor {
 
     // MARK: Get users by id
     public query func getUsersByIds(
-        userIds : [TypCommon.UserId]
+        userIds : Text
     ) : async Result.Result<[TypUser.UserResponse], ()> {
+        let principal = Principal.fromText(userIds);
         let data = Array.map<TypUser.User, TypUser.UserResponse>(
-            user.getUsersByIds(userIds), 
+            user.getUsersByIds([principal]), 
             func u = user.mappedToResponse(u),
         );
 

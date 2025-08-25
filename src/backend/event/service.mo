@@ -76,6 +76,16 @@ module {
             );
         };
 
+        // MARK: Get seat by id
+        public func getSeatById(id: Nat) : ?TypEvent.Seat {
+            switch (seats.get(Utl.natToBlob(id))) {
+                case (null)  { return null; };
+                case (?data) {
+                    return ?data;
+                };
+            };
+        };
+
          // MARK: Mapped to data response
         private func mappedToResponse(event : TypEvent.Event) : TypEvent.EventResponse {
             let filteredSeats = Array.filter<TypEvent.Seat>(
