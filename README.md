@@ -164,7 +164,7 @@ flowchart TB
     end
 
     UI -->|Request Ticket| API
-    API -->|Request Generate Ticket| 
+    API -->|Request Generate Ticket| Agents
     Blockchain -->|Mint NFT Ticket| API
     API -->|Deliver Ticket| UI
 
