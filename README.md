@@ -1,6 +1,37 @@
-# `OpenTicket` ![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+# `OpenTicket`
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+![Fetch.ai](https://img.shields.io/badge/Fetch.ai-Enabled-brightgreen)
+![ICP](https://img.shields.io/badge/ICP-Integrated-blue)
+![DoraHacks](https://img.shields.io/badge/DoraHacks-Hackathon-orange)
 
-Welcome to your new `OpenTicket` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+## 📖 Overview
+
+Welcome to your new `OpenTicket` project and to the Internet Computer development community. OpenTicket is a next-generation blockchain-based platform for secure, transparent, and efficient ticket purchasing, distribution, and validation. Powered by ICP Canisters and uAgents, each ticket is issued as a unique NFT with a digital signature that cannot be forged or duplicated. The system offers flexible payments (fiat or tokens with discounts), ticket resale through a marketplace with automatic royalties for organizers, and fair dynamic pricing. By leveraging blockchain transparency, OpenTicket eliminates counterfeit tickets and prevents irresponsible scalping, ensuring a fairer ecosystem for both organizers and attendees. Beyond concerts, exhibitions, and institutional events, the application can also be extended to transportation services such as flights, trains, and buses—making it a versatile super app for all ticketing needs in the Web3 era.
+
+## 🎯 Key Features
+
+- ✅ Real-time multi-agent communication
+- ✅ Decentralized architecture using Fetch.ai
+- ✅ ICP blockchain integration
+- ✅ Automated task orchestration
+- ✅ Secure message protocol
+- ✅ Scalable agent deployment
+
+## 🤖 Agent Details
+### Agent: OpenTicket Agent for digital signature
+- **Address:** `test-agent://agent1qvmy3fcygaq5hcecwq9tgquwmqm99e2qa9nfdqny8rzknq34vk8n5u8az4q`
+- **Protocol:** AgentChatProtocolv0.3.0
+- **Endpoints:** `/submit`
+
+
+## 🚀 Quick Start
+
+### Prerequisites
+```bash
+pip install uagents
+pip install websockets
+pip install aiohttp
+
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
