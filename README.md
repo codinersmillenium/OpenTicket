@@ -19,7 +19,7 @@ Welcome to `OpenTicket` project and to the Internet Computer development communi
 
 ## 🤖 Agent Details
 ### Agent: OpenTicket Agent for digital signature
-- **Address:** `test-agent://agent1qvmy3fcygaq5hcecwq9tgquwmqm99e2qa9nfdqny8rzknq34vk8n5u8az4q`
+- **Address:** `https://agentverse.ai/agents/details/agent1qvmy3fcygaq5hcecwq9tgquwmqm99e2qa9nfdqny8rzknq34vk8n5u8az4q/profile`
 - **Protocol:** AgentChatProtocolv0.3.0
 - **Endpoints:** `/submit`
 
