@@ -57,6 +57,7 @@ import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
 import { ReactComponent as WalletIcon } from "./wallet.svg?react";
 import { ReactComponent as QrcodeIcon } from "./qrcode.svg?react";
 import { ReactComponent as MoneyCheckIcon } from "./money-check.svg?react";
+import { ReactComponent as TicketIcon } from "./ticket.svg?react";
 
 export {
   ErrorHexaIcon,
@@ -117,5 +118,6 @@ export {
   AngleRightIcon,
   WalletIcon,
   QrcodeIcon,
-  MoneyCheckIcon
+  MoneyCheckIcon,
+  TicketIcon
 };

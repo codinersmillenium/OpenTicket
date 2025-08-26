@@ -51,6 +51,16 @@ module {
             return Buffer.toArray(data);
         };
 
+        // MARK: Get event by code
+        public func getTicketByCode(id: TypCommon.TicketId) : ?TypTicket.TicketResponse {
+            return switch (ticket.get(id)) {
+                case (null)    { return null; };
+                case (?v) { 
+                    return findTicketBySeat(v.seatId);
+                };
+            };
+        };
+
         // MARK: Find event by id {private func}
         private func findTicketByUser(userId : TypCommon.UserId) : ?TypTicket.TicketResponse {
             return switch (ticketResp.get(userId)) {
@@ -90,11 +100,29 @@ module {
                 seatId           = req.seatId;
                 createdAt        = UtlDate.now();
                 createdBy        = userId;
+                signature        = "";
                 status           = #sale;
             };
 
             ticket.put(data.id, data);
             return data;
+        };
+
+        // MARK: update resale ticket
+        public func updateSignTicket(
+            ticketId : TypCommon.TicketId,
+            signature: Text
+        ) : ?TypTicket.Ticket {
+            switch (ticket.get(ticketId)) {
+                case null {
+                    return null;
+                };
+                case (?oldTicket) {
+                    let updated = { oldTicket with signature = signature };
+                    ticket.put(ticketId, updated);
+                    return ?updated;
+                };
+            };
         };
 
         // MARK: check ticket
@@ -155,6 +183,7 @@ module {
                 code      = code;
                 buyAt     = req.buyAt;
                 ownedBy   = userId;
+                signature = "";
                 createdAt = UtlDate.now();
                 createdBy = userId;
             };

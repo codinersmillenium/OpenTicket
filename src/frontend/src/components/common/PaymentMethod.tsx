@@ -1,19 +1,22 @@
 import { FC, useEffect, useState } from "react";
 import { MoneyCheckIcon, QrcodeIcon, WalletIcon } from '../../icons';
 import { Modal } from "../ui/modal";
-import { convertToToken } from "../../lib/canisters";
+import { convertToToken, getPrincipal, initActor } from "../../lib/canisters";
 import { formatCurrency } from "../../lib/utils";
+import TicketComponent from "./TicketComponent";
 
 type PaymentMethodProps = {
     isModalOpen: boolean;
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     item: any;
     detail: any;
 };
 
-const PaymentMethod: FC<PaymentMethodProps> = ({ isModalOpen, setIsModalOpen, item, detail }) => {
+const PaymentMethod: FC<PaymentMethodProps> = ({ isModalOpen, setIsModalOpen, item, detail, setLoading }) => {
   const [selectedMethod, setSelectedMethod] = useState<number | null>(1);
   const [order, setOrder] = useState<any>()
+  const [ticket, setTicket] = useState<any>(false)
 
   const paymentMethods = [
     { id: 1, name: "Token Wallet", icon: <WalletIcon className="w-8 h-8" />, soon: false },
@@ -30,7 +33,46 @@ const PaymentMethod: FC<PaymentMethodProps> = ({ isModalOpen, setIsModalOpen, it
     setSelectedMethod(null);
   };
 
-  const handleConfirmPayment = () => {
+  const handleConfirmPayment = async () => {
+    setLoading(true)
+    try {
+        const principal = await getPrincipal()
+        const token = await initActor('token')
+        const balance = await token.balanceOf(principal[1])
+        await token.updateBalance(principal[1], (Number(balance) - Number(order.totalToken)))
+
+        // update invoice
+        const trx = await initActor('trx')
+        await trx.updateInvoice(item.id, {
+            id: item.id,
+            seatId: 0,
+            userId: principal[1],
+            createdAt: 0,
+            updateAt: 0,
+            total: 0,
+            status: {paid: null},
+            payMethod: [{token: null}]
+        })
+
+        //create ticket
+        const ticket = await initActor('ticket')
+        const { ok } = await ticket.createTicket({
+            id: "",
+            status: {sale: null},
+            signature: "",
+            createdAt: 0,
+            createdBy: principal[1],
+            seatId: detail.seat[0].id
+        })
+        await fetch("http://localhost:8004/query", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: "pay::" + ok.code }),
+        });
+        setLoading(false)
+    } catch (error) {
+        setLoading(false)
+    }
     console.log(`Payment method ${selectedMethod} selected`);
     handleModalClose();
   };
@@ -54,6 +96,13 @@ const PaymentMethod: FC<PaymentMethodProps> = ({ isModalOpen, setIsModalOpen, it
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
+        <Modal
+            isOpen={ticket}
+            onClose={() => setTicket(false)}
+            className="m-4 w-lg p-6 lg:p-10"
+          >
+            <TicketComponent />
+          </Modal>
          <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}

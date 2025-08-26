@@ -36,6 +36,13 @@ module {
             return Buffer.toArray(data);
         };
 
+        public func getInvoiceStatusById(id: TypCommon.InvoiceId) : TypInvoice.InvoiceStatus {
+            switch (invoice.get(id)) {
+                case (null) { return #expired; };
+                case (?inv) { return inv.status; };
+            };
+        };
+
         public func getInvoiceBySeat(seatId: Nat) : [TypInvoice.Invoice] {
             let data = Buffer.Buffer<TypInvoice.Invoice>(0);
             for (i in invoice.vals()) {

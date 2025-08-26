@@ -8,6 +8,7 @@ module {
         id         : TypCommon.TicketId;
         createdAt  : Int;
         createdBy  : TypCommon.UserId;
+        signature  : Text;
     };
 
     public type Ticket = TicketBase and {

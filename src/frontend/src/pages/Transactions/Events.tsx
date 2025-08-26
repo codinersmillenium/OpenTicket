@@ -109,7 +109,7 @@ export default function Events() {
           </div>
           <EventCard getEvents={getEvents} events={events}/>
         </ComponentCard>
-        <PaymentMethod isModalOpen={paymentMethodModal} setIsModalOpen={setPaymentMethodModal} item={order} detail={eventDetail}/>
+        <PaymentMethod isModalOpen={paymentMethodModal} setIsModalOpen={setPaymentMethodModal} item={order} detail={eventDetail} setLoading={setLoading}/>
       </div>
     </>
   );

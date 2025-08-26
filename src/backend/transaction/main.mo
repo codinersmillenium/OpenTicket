@@ -28,6 +28,15 @@ persistent actor {
         return #ok(result);
     };
 
+     // MARK: Get invoice By Seat
+    public query func getInvoiceStatus(
+        id: TypCommon.InvoiceId
+    ) 
+    : async TypInvoice.InvoiceStatus {
+        let result = invoice.getInvoiceStatusById(id);
+        return result;
+    };
+
     // MARK: Get invoice By Seat
     public query func getInvoiceBySeat(
         seatId: TypCommon.SeatId

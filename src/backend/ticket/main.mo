@@ -32,6 +32,14 @@ persistent actor {
         return #ok(result);
     };
 
+    // MARK: Check ticket
+    public query func checkTicketByCode(
+        code: Text
+    ) : async Result.Result<?TypTicket.TicketResponse, ()> {
+        let result = ticket.getTicketByCode(code);
+        return #ok(result);
+    };
+
     // MARK: Get count ticket on event
     public query func getTicketQty(
         seatId: TypCommon.SeatId
@@ -59,6 +67,20 @@ persistent actor {
         } catch (err) {
             Debug.print("Caught error: " # Error.message(err));
             return #err("#get ticket failed...");
+        };
+	};
+
+    // MARK: Create ticket resale
+    public shared func updateSignTicket(
+        id: TypCommon.TicketId,
+        signature: Text
+    ) : async Result.Result<Text, Text> {
+        try {
+            let _ = ticket.updateSignTicket(id, signature);
+            return #ok("#resale ticket successfull...");
+        } catch (err) {
+            Debug.print("Caught error: " # Error.message(err));
+            return #err("#resale ticket failed...");
         };
 	};
 
