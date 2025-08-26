@@ -1,7 +1,7 @@
 import json
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from agent_inject import process_query_simple  # pakai versi simple
+from agent_local import process_query_simple  # pakai versi simple
 
 app = FastAPI()
 
