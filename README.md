@@ -125,10 +125,10 @@ If you are hosting frontend code somewhere without using DFX, you may need to ma
    Request goes to FastAPI which validates the purchase, handles payments, and triggers ticket issuance.  
 
 3. **On-chain Execution (ICP Motoko):**  
-   FastAPI communicates with ICP canister via dfinity agent → Smart contract mints NFT ticket + signs with digital signature.  
+   FastAPI communicates with ICP canister via dfinity agent → Smart contract mints NFT ticket + signs with electronic signature.  
 
 4. **Agent Communication:**  
-   uAgents + Fetch.ai manage real-time verification, resale, or orchestration tasks.  
+   uAgents + Fetch.ai manage real-time verification and AI Assitant.  
 
 5. **Ticket Delivery:**  
    User receives a verifiable NFT ticket in wallet/app, ready for scanning/validation at events.  
