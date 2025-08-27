@@ -172,4 +172,7 @@ flowchart TB
     Agents -->|E Signature| Blockchain
     Agents -->|Real-time Verification| UI
 
+## 🎬 Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/QW9GVsKD3Zs/maxresdefault.jpg)](https://www.youtube.com/watch?v=QW9GVsKD3Zs "OpenTicket Demo – click to play")
 
