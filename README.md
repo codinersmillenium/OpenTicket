@@ -142,6 +142,10 @@ If you are hosting frontend code somewhere without using DFX, you may need to ma
 - Flexibility for fiat & token-based payments  
 - Extendability for transportation, exhibitions, and Web3 super-app use cases
 
+## 🎬 Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/QW9GVsKD3Zs/maxresdefault.jpg)](https://www.youtube.com/watch?v=QW9GVsKD3Zs "OpenTicket Demo – click to play")
+
 ## 🖼️ Architecture Diagram
 
 ```mermaid
@@ -171,8 +175,4 @@ flowchart TB
     API -->|Validation Request| Agents
     Agents -->|E Signature| Blockchain
     Agents -->|Real-time Verification| UI
-
-## 🎬 Demo Video
-
-[![Watch the video](https://img.youtube.com/vi/QW9GVsKD3Zs/maxresdefault.jpg)](https://www.youtube.com/watch?v=QW9GVsKD3Zs "OpenTicket Demo – click to play")
 
